@@ -1,0 +1,82 @@
+﻿
+@model Employee
+@{
+	ViewData["Title"] = "Add new Employee";
+}
+
+@*@{
+    List<SelectListItem> department = new();
+    department.Add(new SelectListItem() { Text = "Select department", Value = "Select" });
+    department.Add(new SelectListItem() { Text = "Development", Value = "Development" });
+    department.Add(new SelectListItem() { Text = "Admin", Value = "Admin" });
+    department.Add(new SelectListItem() { Text = "HR", Value = "HR" });
+}
+@{
+    List<SelectListItem> designation = new();
+    designation.Add(new SelectListItem() { Text = "Select designation", Value = "Select one" });
+    designation.Add(new SelectListItem() { Text = "CEO", Value = "CEO" });
+    designation.Add(new SelectListItem() { Text = "Manager", Value = "Manager" });
+    designation.Add(new SelectListItem() { Text = "HR", Value = "HR" });
+}*@
+
+<h1>
+	Employee Details To  Be Filled
+</h1>
+
+
+<form class="row g-3" asp-controller="Employee" asp-action="Add" method="post" enctype="multipart/form-data">
+  
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Name">Name</label>
+    <input class="form-control" asp-for = "Name">
+    <span asp-validation-for="Name" class="text-danger"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Address">Address</label>
+    <input class="form-control" asp-for = "Address">
+    <span asp-validation-for="Address" class="text-danger"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="PhoneNumber">Phone Number</label>
+    <input class="form-control" asp-for = "PhoneNumber">
+    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+   </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Email">Email</label>
+    <input class="form-control" asp-for="Email">
+    <span class="text-danger" asp-validation-for="Email"></span>
+  </div>
+  <div class="col-6">
+    <label class="form-label" asp-for="DepartmentId">Department</label>
+    <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.DepartmentList"></select>
+  
+    <span class="text-danger" asp-validation-for="DepartmentId"></span>
+  </div>
+  <div class="col-md-6">
+   <label class="form-label" asp-for="DesignationId">Designation</label>
+   <select class="form-control" asp-for="DesignationId" asp-items="ViewBag.DesignationList"></select>
+  
+    <span asp-validation-for="DesignationId" class="text-danger"></span>
+  </div>
+   <div class="col-md-6">
+    <label class="form-label" asp-for="StartTime">StartTime</label>
+    <input class="form-control" type="time" asp-for = "StartTime">
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+   </div>
+   <div class="col-md-6">
+    <label class="form-label" asp-for="EndTime">EndTime</label>
+    <input class="form-control" type="time" asp-for = "EndTime">
+        <span asp-validation-for="EndTime" class="text-danger"></span>
+   </div>
+  <div class="col-md-6">
+        <label asp-for="ProfilePic" class="form-label">Profile Pic</label>
+        <input src="@Url.Content("/Images/")" type="file" asp-for="ProfilePic" /> 
+  </div>
+
+  <div class="col-md-8">
+    <a class=" btn btn-outline-secondary" href = "/employee/index">Close</a>
+
+
+    <button type="submit" class="btn btn-outline-success" runat="server" OnClick="Save">Save</button>
+  </div>
+</form>

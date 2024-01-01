@@ -1,0 +1,111 @@
+﻿
+@model Employee
+@{
+	ViewData["Title"] = "Update Employee";
+}
+<h1>
+	Employee Details To  Be Edited
+</h1>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+<form class="row g-3" asp-controller="Employee" asp-action="Update" method="post" enctype="multipart/form-data">
+  <style>
+       
+       
+       .mag {
+          width: 50%;
+          height: 50%;
+        }
+       .mag img {
+          width: 60%;
+          top: 0;
+          left: 0%;
+          float: right;
+          object-fit: cover;
+          transition: transform 0.2s ease-out;
+          cursor: pointer;
+        }
+        .mag img:hover {
+          transform: scale(5);
+        }
+      
+</style>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Name">Name</label>
+    <input class="form-control" asp-for = "Name">
+    <span asp-validation-for="Name" class="text-danger"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Address">Address</label>
+    <input class="form-control" asp-for = "Address">
+    <span asp-validation-for="Address" class="text-danger"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="PhoneNumber">Phone Number</label>
+    <input class="form-control" asp-for = "PhoneNumber">
+    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+   </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Email">Email</label>
+    <input class="form-control" asp-for="Email">
+    <span class="text-danger" asp-validation-for="Email"></span>
+  </div>
+  <div class="col-6">
+    <label class="form-label" asp-for="DepartmentId">Department</label>
+    <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.DepartmentList"></select>
+  </div>
+  <div class="col-md-6">
+   <label class="form-label" asp-for="DesignationId">Designation</label>
+   <select class="form-control" asp-for="DesignationId" asp-items="ViewBag.DesignationList"></select>
+  </div>
+   <div class="col-md-6">
+    <label class="form-label" asp-for="StartTime">StartTime</label>
+    <input class="form-control" type="time" asp-for = "StartTime">
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+   </div>
+   <div class="col-md-6">
+    <label class="form-label" asp-for="EndTime">EndTime</label>
+    <input class="form-control" type="time" asp-for = "EndTime">
+        <span asp-validation-for="EndTime" class="text-danger"></span>
+   </div>
+   <div class="col-md-6">
+      <input type="file" asp-for="ProfilePic" id="photo"  class="center"/>
+      <input type="hidden" name="ProfilePath" value="@Model.ProfilePath"  />
+  </div>
+  <div class="col-md-6 mag" id="magnify">
+      <img src="@Model.ProfilePath" alt="meow" class="img-thumbnail img-fluid center" id="imgPreview" />
+  </div>
+  
+  <div class="col-md-6">
+    <a class="btn btn-outline-secondary" href = "/employee/index">Close</a>
+    <button type="submit" class="btn btn-outline-success">Update</button>
+  </div>
+</form>
+<script>
+    $("document").ready(function(){
+
+        $("#photo").change(function() {
+            const file = this.files[0];
+            console.log(file);
+            if (file){
+                let reader = new FileReader();
+                reader.onload = function(event){
+                    console.log(event.target.result);
+                    $('#imgPreview').attr('src', event.target.result);
+                    //$('#magnify').jzoom();
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        $('.mag').css('width', $('img').width());
+  
+            $('img')
+                .mag()
+                .zoom({
+                    magnify: 4,
+                    target: $('.contain').get(0)
+                });
+    });
+</script>
+ 

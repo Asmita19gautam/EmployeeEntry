@@ -1,0 +1,59 @@
+﻿
+@model List<Employee>
+
+@{
+	ViewData["Title"] = "List of Employee";
+}
+
+   
+        <nav class="navbar navbar-light bg-light">
+            <div  style = "text-align: left;">
+                <h1>Employee</h1>
+            </div>
+            <div style = "text-align: right;">
+                  <a class="btn btn-primary mb-3" href="/Employee/Add">Add Employee</a>
+            </div>
+        </nav>
+    
+ 
+
+<div class="col col-form-label-sm">
+    <table class="table" style="border-collapse: collapse; border: 1px solid #dddddd;">
+      <thead class="thead-dark"style=" background-color: #BFBFBF">
+        <tr>
+            <th>SN</th>
+          <th scope="col">Name</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Office TIme</th>
+          <th scope="col">Email</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody style=" background-color: #EAF7F0">
+            @{
+                int i = 1;
+            }
+            @foreach(var data in Model)
+            {
+            <tr>
+                <td>@(i++)</td>
+              <td>@data.Name</td>
+              <td>@data.PhoneNumber</td>
+              @{
+                        var st = DateTime.Parse(@data.StartTime).ToString("hh:mm tt");
+                        var et = DateTime.Parse(@data.EndTime).ToString("hh:mm tt");
+                        var offTime = st + '-' + et;
+                    }
+              <td>@offTime</td>
+              <td>@data.Email</td>
+              <td>
+                  <a asp-controller="Employee" asp-action="Update" class="btn btn-outline-info btn-sm" asp-route-Id ="@data.Id">Edit</a>
+			      <a asp-controller="Employee" asp-action="Delete" class="btn btn-outline-danger btn-sm" asp-route-Id ="@data.Id">Delete</a>
+              </td>
+            </tr>
+            }
+        
+    
+      </tbody>
+    </table>
+</div>

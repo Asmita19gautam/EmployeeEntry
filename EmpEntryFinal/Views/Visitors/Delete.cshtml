@@ -1,0 +1,75 @@
+﻿
+@model Visitors
+@{
+	ViewData["Title"] = "Delete Visitor's info";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<h1>
+	Are you sure to delete ?
+</h1>
+<form class="row g-3" asp-controller="Visitors" asp-action="Delete" method="post" enctype="multipart/form-data">
+  
+  <div class="col-md-6">
+    <label class="form-label" asp-for="FirstName">First Name</label>
+    <input class="form-control" asp-for = "FirstName">
+    <span asp-validation-for="FirstName" class="text-danger"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="LastName">Last Name</label>
+    <input class="form-control" asp-for = "LastName">
+    <span asp-validation-for="LastName" class="text-danger"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Reason">Reason</label>
+    <input class="form-control" asp-for = "Reason">
+    <span asp-validation-for="Reason" class="text-danger"></span>
+   </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="RepresentingCompany">Representing Company</label>
+    <input class="form-control" asp-for="RepresentingCompany">
+    <span class="text-danger" asp-validation-for="RepresentingCompany"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="MobileNo">Contact Number</label>
+    <input class="form-control" asp-for="MobileNo">
+    <span class="text-danger" asp-validation-for="MobileNo"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Email">Email Address</label>
+    <input class="form-control" asp-for="Email">
+    <span class="text-danger" asp-validation-for="Email"></span>
+  </div>
+  <div class="col-md-6">
+   <label class="form-label" asp-for="EmployeeId">Appointment With</label>
+    <select class="form-control" asp-for="EmployeeId" asp-items="ViewBag.EmployeeList"></select>
+    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+   </div>
+  <div class="col-md-6 row1">
+    <label for="IsParking">IsParking </label>
+   <br><input type="checkbox" id="IsParking" name="IsParking" value="True" @(Model.IsParking?"checked":"")>
+ </div>
+  
+  <div class="col-md-6">
+   <a class=" btn btn-outline-secondary" href = "/visitors/index">Close</a>
+
+    <button type="submit" class="btn btn-outline-danger">Delete</button>
+  </div>
+</form>
+<script type="text/javascript">
+$("document").ready(function() {
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_minimal',
+            
+        increaseArea: '20%' // optional
+    });
+
+    $('#IsParking').on('click', function() {
+        $('.row1').css('display', this.checked ? 'none' : 'inline');
+        //$('input').on('ifChecked', function(event){
+        //    alert(event.type + ' callback');
+        //  });
+    });
+});
+</script>

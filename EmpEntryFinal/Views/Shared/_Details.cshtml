@@ -1,0 +1,80 @@
+﻿@{
+    var empList = _dbContext1.Employee.ToList();
+}
+@{
+    ViewData["Title"] = "List of Employee";
+}
+<div class="card">
+    <div class="row">
+        <div class="card-header-body col-md-6"><b>Employee List</b></div>
+        <div class="col-md-6">
+        <form method="get" asp-controller="Employee" asp-action="Search">
+              @*<input class="form-control mr-sm-2" type="text" value="@ViewData["CurrentFilter"]" placeholder="Search Employee" name="SearchTerm" >*@
+              <input class="form-control mr-sm-2" type="text" id="searchtext" placeholder="Search Employee" title="Find by Name,Address etc">
+        </form>
+        </div>
+        
+    </div>
+    
+    <div class="card-body form-text text-black " style=" background-color: #adada6">
+        @foreach (var item in empList)
+        {
+            <div class="row draggable">
+                <div class="col-md-4 card card-body mt-1">
+                    <img src="@item.ProfilePath" class="rounded-circle row col card-img-bottom" style="border-radius:10%!important">
+                </div>
+                <div class="card card-body mt-1 col-md-8">
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Name: </th>
+                                <td>@item.Name</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Address: </th>
+                                <td>@item.Address</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Phone Number: </th>
+                                <td>@item.PhoneNumber</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email: </th>
+                                <td>@item.Email</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Office Time: </th>
+                                @{
+                                    var st = DateTime.Parse(@item.StartTime).ToString("hh:mm tt");
+                                    var et = DateTime.Parse(@item.EndTime).ToString("hh:mm tt");
+                                    var offTime = st + '-' + et;
+                                }
+                                <td>@offTime</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+   
+    $("#searchtext").on('input', function(){
+            var srchtxt = $('#searchtext').val();
+            debugger;
+            if (srchtxt != undefined && srchtxt != "" && srchtxt.length > 0) {
+                $('.draggable').hide();
+                $('.draggable').each(function() {
+                    if ($(this).text().toUpperCase().indexOf(srchtxt.toUpperCase()) != -1) {
+                        $(this).show();
+                    }
+                });
+            }
+            else {
+                $('.draggable').show();
+            }
+             
+        });
+</script>

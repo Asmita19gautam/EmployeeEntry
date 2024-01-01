@@ -1,0 +1,54 @@
+﻿
+@model List<Visitors>
+
+@{
+	ViewData["Title"] = "List of Visitors";
+}
+ <nav class="navbar navbar-light bg-light">
+            <div style = "text-align: left;">
+                <h3>Visitors</h3>
+            </div>
+            <div style = "text-align: right;">
+                  <a class="btn btn-primary mb-3" href="/Visitors/Add">Add Visitors</a>
+            </div>
+ </nav>
+ 
+<div class="col col-form-label-sm ">
+  <table class="table" style="border-collapse: collapse; border: 1px solid #dddddd;">
+   <thead class="thead-dark"style=" background-color: #BFBFBF">
+        <tr>
+            <th>SN</th>
+      
+          <th scope="col">Visitor's Name</th>
+          <th scope="col">MobileNo</th>
+          <th scope="col">Reason</th>
+          <th scope="col">Appointment With</th>
+          <th scope="col">Action</th>
+
+        </tr>
+   </thead>
+   <tbody  style=" background-color: #EAF7F0">
+        @{
+            int i = 1;
+        }
+        @foreach(var data in Model)
+        {
+        <tr>
+            <td>@(i++)</td>
+          <td>@data.FirstName  @data.LastName </td>
+          <td>@data.MobileNo</td>
+          <td>@data.Reason</td>
+          <td>@data.Employee.Name</td>
+
+          <td>
+              <a asp-controller="Visitors" asp-action="Update" class="btn btn-outline-info btn-sm" asp-route-Id ="@data.Id">Edit</a>
+			  <a asp-controller="Visitors" asp-action="Delete" class="btn btn-outline-danger btn-sm" asp-route-Id ="@data.Id">Delete</a>
+          </td>
+        </tr>
+        }
+        
+    
+   </tbody>
+ </table>
+</div>
+

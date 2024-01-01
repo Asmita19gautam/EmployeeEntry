@@ -1,0 +1,85 @@
+﻿
+@model Employee
+@{
+	ViewData["Title"] = "Delete Employee";
+}
+
+@*@{
+    List<SelectListItem> department = new();
+    department.Add(new SelectListItem() { Text = "Select department", Value = "Select" });
+    department.Add(new SelectListItem() { Text = "Development", Value = "Development" });
+    department.Add(new SelectListItem() { Text = "Admin", Value = "Admin" });
+    department.Add(new SelectListItem() { Text = "HR", Value = "HR" });
+}
+@{
+    List<SelectListItem> designation = new();
+    designation.Add(new SelectListItem() { Text = "Select designation", Value = "Select one" });
+    designation.Add(new SelectListItem() { Text = "CEO", Value = "CEO" });
+    designation.Add(new SelectListItem() { Text = "Manager", Value = "Manager" });
+    designation.Add(new SelectListItem() { Text = "HR", Value = "HR" });
+}*@
+
+<h1>
+	Are you sure,you want to delete?
+</h1>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<form class="row g-3" asp-controller="Employee" asp-action="Delete" method="post" enctype="multipart/form-data">
+  
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Name">Name</label>
+    <input class="form-control" asp-for = "Name">
+    <span asp-validation-for="Name" class="text-danger"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Address">Address</label>
+    <input class="form-control" asp-for = "Address">
+    <span asp-validation-for="Address" class="text-danger"></span>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="PhoneNumber">Phone Number</label>
+    <input class="form-control" asp-for = "PhoneNumber">
+    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+   </div>
+  <div class="col-md-6">
+    <label class="form-label" asp-for="Email">Email</label>
+    <input class="form-control" asp-for="Email">
+    <span class="text-danger" asp-validation-for="Email"></span>
+  </div>
+  <div class="col-6">
+    <label class="form-label" asp-for="DepartmentId">Department</label>
+    <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.DepartmentList"></select>
+  </div>
+  <div class="col-md-6">
+   <label class="form-label" asp-for="DesignationId">Designation</label>
+   <select class="form-control" asp-for="DesignationId" asp-items="ViewBag.DesignationList"></select>
+  </div>
+   <div class="col-md-6">
+    <label class="form-label" asp-for="StartTime">StartTime</label>
+    <input class="form-control" type="time" asp-for = "StartTime">
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+   </div>
+   <div class="col-md-6">
+    <label class="form-label" asp-for="EndTime">EndTime</label>
+    <input class="form-control" type="time" asp-for = "EndTime">
+        <span asp-validation-for="EndTime" class="text-danger"></span>
+   </div>
+  <div class="col-md-6">
+        <label asp-for="ProfilePic" class="form-label">Profile Pic</label>
+       <input type="file" asp-for="ProfilePic" /> 
+        <img src="@Model.ProfilePath" alt="meow" class="img-thumbnail" /> 
+
+  </div>
+  <div class="col-md-6">
+    <a class=" btn btn-outline-secondary" href = "/employee/index">Close</a>
+    <button type="submit" class="btn btn-outline-danger">Delete</button>
+  </div>
+</form>
+<script>
+ $(document).ready(function(){
+  $("form").submit(function(){
+    alert("Record Deleted");
+  });
+});
+</script>

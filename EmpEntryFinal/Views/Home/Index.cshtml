@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h3 class="display-4">Welcome To Visitors' Waiting List </h3>
+    
+</div>
+
+@model List<Visitors>
+
+@{
+	ViewData["Title"] = "Waiting Visitors";
+}
+
+ 
+<div class="col col-form-label-sm">
+  <table class="table" style="border-collapse: collapse; border: 1px solid #dddddd;">
+   <thead class="thead-dark"style=" background-color: #BFBFBF">
+        <tr>
+            <th>SN</th>
+      
+          <th scope="col">Visitor's Name</th>
+          <th scope="col">MobileNo</th>
+          <th scope="col">Reason</th>
+          <th scope="col">Appointment With</th>
+
+        </tr>
+   </thead>
+   <tbody  style=" background-color: #EAF7F0">
+        @{
+            int i = 1;
+        }
+        @foreach(var data in Model)
+        {
+        <tr>
+            <td>@(i++)</td>
+          <td>@data.FirstName  @data.LastName </td>
+          <td>@data.MobileNo</td>
+          <td>@data.Reason</td>
+          <td>@data.Employee.Name</td>
+        </tr>
+        }
+        
+    
+   </tbody>
+ </table>
+</div>
+
